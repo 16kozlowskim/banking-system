@@ -10,15 +10,15 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-@Table(name = "Accounts")
+//@Table(name = "Accounts")
 public class Account {
 
-    @PrimaryKey
-    @Column(name = "AccountId")
+    //@PrimaryKey
+    //@Column(name = "AccountId")
     private String accountId;
-    @Column(name = "Owner")
+    //@Column(name = "Owner")
     private String owner;
-    @Column(name = "Balance", spannerType = TypeCode.NUMERIC)
+    //@Column(name = "Balance", spannerType = TypeCode.NUMERIC)
     private BigDecimal balance;
 
     public void addToBalance(BigDecimal amount) {

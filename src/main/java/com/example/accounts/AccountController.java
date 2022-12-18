@@ -28,17 +28,16 @@ public class AccountController {
     @PutMapping("accounts")
     public void createAccount(@RequestBody Account account) {
         logger.info("Upsert account: {}", account);
-        spannerOperations.upsert(account);
     }
 
     @GetMapping("accounts")
     public List<Account> getAccounts() {
-        return spannerOperations.readAll(Account.class);
+        return List.of();
     }
 
     @GetMapping("accounts/{accountId}")
     public Account getAccount(@PathVariable String accountId) {
-        Account account = spannerOperations.read(Account.class, Key.of(accountId));
+        Account account = new Account();
         logger.info("Get account: {}", account);
         return account;
     }
@@ -46,16 +45,10 @@ public class AccountController {
     @GetMapping("accounts/{accountId}/transfers")
     public List<Transfer> getAccountTransfers(@PathVariable String accountId, @RequestParam boolean outgoing) {
         if (outgoing) {
-            return spannerOperations
-                    .query(Transfer.class,
-                            Statement.of(String.format(OUTGOING_ACCOUNT_TRANSFERS, accountId)),
-                            new SpannerQueryOptions());
+            return List.of();
 
         }
-        return spannerOperations
-                .query(Transfer.class,
-                        Statement.of(String.format(INCOMING_ACCOUT_TRANSFERS, accountId)),
-                        new SpannerQueryOptions());
+        return List.of();
 
     }
 
@@ -68,24 +61,6 @@ public class AccountController {
 
         logger.info("Transfer for: {}", amount);
 
-        spannerOperations.performReadWriteTransaction(template -> {
-            Account from = template.read(Account.class, Key.of(accountId));
-            Account to = template.read(Account.class, Key.of(destAccId));
-
-            from.addToBalance(amount.negate());
-            to.addToBalance(amount);
-
-            template.update(from);
-            template.update(to);
-            Transfer transfer =
-                    Transfer.builder()
-                            .accountId(accountId)
-                            .transferId(transferId)
-                            .destAccId(destAccId)
-                            .amount(amount)
-                            .timestamp(Value.COMMIT_TIMESTAMP).build();
-            template.insert(transfer);
-            return null;
-        });
+        spannerOperations.performReadWriteTransaction(template -> null);
     }
 }
