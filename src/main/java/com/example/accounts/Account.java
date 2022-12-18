@@ -10,10 +10,8 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-//@Table(name = "Accounts")
 public class Account {
 
-    //@PrimaryKey
     //@Column(name = "AccountId")
     private String accountId;
     //@Column(name = "Owner")
