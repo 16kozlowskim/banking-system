@@ -57,7 +57,7 @@ public class AccountController {
             @PathVariable String accountId,
             @RequestParam String transferId,
             @RequestParam String destAccId,
-            @RequestParam BigDecimal amount) {
+            @RequestParam double amount) {
 
         logger.info("Transfer for: {}", amount);
 

@@ -17,9 +17,9 @@ public class Account {
     //@Column(name = "Owner")
     private String owner;
     //@Column(name = "Balance", spannerType = TypeCode.NUMERIC)
-    private BigDecimal balance;
+    private double balance;
 
-    public void addToBalance(BigDecimal amount) {
-        this.balance = balance.add(amount);
+    public void addToBalance(double amount) {
+        this.balance += amount;
     }
 }

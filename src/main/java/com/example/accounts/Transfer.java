@@ -3,6 +3,7 @@ package com.example.accounts;
 
 import com.google.cloud.Timestamp;
 import com.google.cloud.spring.data.spanner.core.mapping.*;
+import com.google.spanner.v1.TypeCode;
 import lombok.Builder;
 import lombok.Data;
 
@@ -19,6 +20,6 @@ public class Transfer {
     private String transferId;
     //@Column(name = "DestAccId")
     private String destAccId;
-    //@Column(name = "Amount")
-    private BigDecimal amount;
+    //@Column(name = "Amount", spannerType = TypeCode.NUMERIC)
+    private double amount;
 }
