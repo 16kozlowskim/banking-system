@@ -64,7 +64,7 @@ public class AccountController {
             @PathVariable String accountId,
             @RequestParam String transferId,
             @RequestParam String destAccId,
-            @RequestParam BigDecimal amount) {
+            @RequestParam double amount) {
 
         logger.info("Transfer for: {}", amount);
 
@@ -72,7 +72,7 @@ public class AccountController {
             Account from = template.read(Account.class, Key.of(accountId));
             Account to = template.read(Account.class, Key.of(destAccId));
 
-            from.addToBalance(amount.negate());
+            from.addToBalance(-amount);
             to.addToBalance(amount);
 
             template.update(from);
